@@ -1,0 +1,20 @@
+h1.EastBoston_head{
+    margin-bottom: 20px;
+}
+.credit{
+    margin-bottom: 50px;
+}
+.hedImg{
+    width: 100%;
+    margin: 50px 0 50px 0;
+}
+.eb-content{
+    font-family:'Times';
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+}
+#map{
+    margin-top: 50px;
+    min-height: 600px;
+    width: 100%;
+}

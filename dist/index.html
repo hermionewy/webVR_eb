@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		<!--<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>-->
+		<!--<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet' />-->
+		<link href="leaflet/leaflet.css" rel='stylesheet'/>
+		<link rel="icon" type="image/png" href="./assets/favicon.png">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<link rel="stylesheet" href="EastBoston_styles.css"/>
+		<link rel="stylesheet" href="main.css"/>
+
+		<script src="leaflet/leaflet.js" rel="script"></script>
+
+	</head>
+	<body>
+	<nav role="navigation" class="EastBoston_nav" >
+		<div id="menuToggle">
+			<!--
+            A fake / hidden checkbox is used as click reciever,
+            so you can use the :checked selector on it.
+            -->
+			<input type="checkbox" />
+
+			<!--
+            Some spans to act as a hamburger.
+            -->
+			<span></span>
+			<span></span>
+			<span></span>
+
+			<ul id="menu">
+				<a href="https://web.northeastern.edu/visualizingeastie/the-people" ><li style="font-size:2rem">The people</li></a>
+				<a href="https://web.northeastern.edu/visualizingeastie/the-environment"><li style="font-size:2rem">The environment</li></a>
+				<a href="https://web.northeastern.edu/visualizingeastie/the-built-city"><li style="font-size:2rem">The built city</li></a>
+			</ul>
+		</div>
+	</nav>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6 offset-md-3 col-12">
+					<h1 class='EastBoston_head'> Eat in East Boston</h1>
+					<p class='credit'>BY YAN WU</p>
+				</div>
+				<div class="col-md-6 offset-md-3 col-12">
+					<p class="eb-content">
+						There are nearly 100 restaurants in East Boston. As East Boston's population is ethnically diverse, the food services are also diversified.
+					</p>
+					<p class="eb-content">
+						The location of food stores and food service places are associated with neighborhood characteristics, according to a research by the University of North Carolina.
+					</p>
+					<p class="eb-content">
+						Here is a 360-degree look at the restaurants in East Boston.
+					</p>
+				</div>
+				<div class="col-12">
+					<img class="hedImg" src="./assets/placeholder.png"/>
+					<p> Scarmella / Maverick Square</p>
+				</div>
+				<div class="col-md-6 offset-md-3 col-12">
+					<p class="eb-content">
+						There are more than 10,000 food establishment inspections aimed at East Boston restaurants since 2013.
+					</p>
+					<p class="eb-content">
+						Reasons for inspections vary, including: food protection, wiping cloths clean sanitize, improper maintenance, etc.
+					</p>
+					<p class="eb-content">
+						Below mapped all the restaurants mentioned in the <a href="https://data.boston.gov/dataset/food-establishment-inspections" target="_blank"></a>dataset.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 col-12">
+					<div id="map"></div>
+				</div>
+				<div class="col-md-4 col-12">
+				</div>
+			</div>
+		</div>
+
+		<script src='./assets/bundle.js' type='text/javascript'></script>
+	</body>
+</html>
