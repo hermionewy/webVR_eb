@@ -1,11 +1,14 @@
 //run webpack-dev-server --content-base dist
 //https://webpack.github.io/docs/configuration.html
 var webpack = require('webpack');
+var path = require('path');
+var WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = {
 	entry:'./src/index.js',
 	output:{
-		path:__dirname+'/dist',
+        path: path.join(__dirname, './dist'),
+		//path:__dirname+'/dist',
 		filename:'bundle.js',
 		publicPath:'/assets/'
 	},
@@ -38,7 +41,8 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			$:'jquery',
 			'jquery':'jquery'
-		})
+		}),
+        new WriteFilePlugin(),
 	],
     externals:[{
         xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}'

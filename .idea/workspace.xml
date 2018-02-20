@@ -2,61 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6be3935d-a186-4972-8bad-215454cf0e1b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/assets/EastBoston_logo_final.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/assets/favicon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/assets/placeholder.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/data/MHIMetroBos.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/data/Pop-Density-2010.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/images/layers-2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/images/layers.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/images/marker-icon-2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/images/marker-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/images/marker-shadow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/eastBoston1.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dataCombine.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dataProcessYelp.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dataProcessing.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/EastBoston_styles.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/data/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/data/bos_neighborhoods.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/data/eastBostonInspection2.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/data/eb_neighborhood.geojson" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/data/yelpEastData.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/leaflet-src.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/leaflet-src.js.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/leaflet.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/leaflet.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/leaflet/leaflet.js.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/main.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/processedData/eastBostonInspection.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/processedData/eastBostonyelp.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/processedData/yelpAll.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/processedData/yelpAllEast.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/processedData/yelpBar.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/processedData/yelpCoffee.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/processedData/yelpFood.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/yelp/yelpBar.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/yelp/yelpCoffee.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/yelp/yelpNearEB.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/indexMapbox.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/modules/SearchBar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/modules/dataloader-indexeddb.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/modules/dataloader.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/modules/graphic.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/modules/loadLink.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/modules/menu.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpack.config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yelpRequest.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/yelpRequest2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -73,8 +20,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dist/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="57" column="72" lean-forward="true" selection-start-line="57" selection-start-column="72" selection-end-line="57" selection-end-column="72" />
+            <state relative-caret-position="255">
+              <caret line="17" column="39" lean-forward="true" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#a#0;n#ul#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#0;n#a#1;n#ul#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -84,10 +31,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="webpack.config.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webpack.config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="38" column="6" lean-forward="true" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
+            <state relative-caret-position="1395">
               <caret line="93" column="30" lean-forward="true" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
@@ -172,8 +129,9 @@
       <find>dataloader</find>
       <find>nest</find>
       <find>EastBo</find>
-      <find>liquor</find>
       <find>map</find>
+      <find>liquor</find>
+      <find>bundle.js</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -182,7 +140,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/modules/graphic.js" />
         <option value="$PROJECT_DIR$/src/modules/dataloader.js" />
@@ -203,6 +160,7 @@
         <option value="$PROJECT_DIR$/dist/index.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/webpack.config.js" />
       </list>
     </option>
   </component>
@@ -254,14 +212,7 @@
             <path>
               <item name="eastBoston1" type="b2602c69:ProjectViewProjectNode" />
               <item name="eastBoston1" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eastBoston1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eastBoston1" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="yelp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -357,7 +308,7 @@
         </option>
       </EXTENSION>
     </configuration>
-    <configuration name="dataProcessYelp.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="$PROJECT_DIR$/dataProcessYelp.js" working-dir="$PROJECT_DIR$">
+    <configuration name="dataProcessYelp.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="webpack.config.js" working-dir="$PROJECT_DIR$">
       <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
         <option name="envVars">
           <list />
@@ -486,14 +437,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47046000" />
+    <option name="totallyTimeSpent" value="47993000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="23" width="1280" height="717" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2494043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2494043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -533,16 +483,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="23" column="20" lean-forward="false" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/modules/loadLink.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -676,13 +616,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5198">
           <caret line="0" column="4462106" lean-forward="false" selection-start-line="0" selection-start-column="4462101" selection-end-line="0" selection-end-column="4462106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-147">
-          <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -866,18 +799,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="57" column="72" lean-forward="true" selection-start-line="57" selection-start-column="72" selection-end-line="57" selection-end-column="72" />
-          <folding>
-            <element signature="n#style#0;n#li#0;n#a#0;n#ul#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#0;n#a#1;n#ul#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#li#0;n#a#2;n#ul#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -888,11 +809,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
+        <state relative-caret-position="1395">
           <caret line="93" column="30" lean-forward="true" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="39" lean-forward="true" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+          <folding>
+            <element signature="n#style#0;n#li#0;n#a#0;n#ul#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#a#1;n#ul#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#li#0;n#a#2;n#ul#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/12a426958c2fd0d78683b99233309f8a.eot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="38" column="6" lean-forward="true" selection-start-line="38" selection-start-column="6" selection-end-line="38" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
