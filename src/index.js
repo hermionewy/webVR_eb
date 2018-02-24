@@ -18,7 +18,7 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
     }
     map = L.map("map", {
         center:  viewLatLng,
-        zoom: 13.5,
+        zoom: zoomLevel,
         scrollWheelZoom: false,
         zoomSnap: 0.5,
         // zoomControl: false,
@@ -35,7 +35,7 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
         // .defer(d3.csv, './data/liquor-licenses.csv', parseLiquor)
 		.await(dataloaded);
 
-    function dataloaded(err, geo, data, yelp) {
+    function dataloaded(err, geo, data0, yelp) {
 		// console.log(data);
 		// console.log(geo);
 		console.log(yelp.length);
@@ -48,7 +48,9 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
             fillOpacity: 0.05
         };
 
-
+        var data = data0.filter(function (d) {
+            return d.violStatus== 'Fail'
+        });
         var nestedData = d3.nest().key(function (d) {
             return d.location;
         }).entries(data);
@@ -70,7 +72,7 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
         yelpGroup.addTo(map);
         liquorGroup.addTo(map);
         var bounds = geoJson.getBounds();
-        var overlay = L.imageOverlay('./data/MHIMetroBos.png',bounds, {opacity: 0.5}).addTo(map);
+        // var overlay = L.imageOverlay('./data/MHIMetroBos.png',bounds, {opacity: 0.5}).addTo(map);
 
 
         // liquor.forEach(function (d) {
@@ -121,19 +123,19 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
         }
     }
     function colorByNum(num) {
-        if(num<20){
+        if(num<10){
             return '#29dc2f'
-        } else if(num<40){
+        } else if(num<20){
             return '#9ac74f'
-        } else if(num<60){
+        } else if(num<30){
             return '#dac91c'
-        } else if(num<80){
+        } else if(num<40){
             return '#ffbe42'
-        } else if(num<100){
+        } else if(num<50){
             return '#ff7f24'
-        } else if(num <120){
+        } else if(num <60){
             return '#ff0000'
-        } else if(num < 140){
+        } else if(num < 70){
             return '#bc0000'
         } else {
             return '#7a0b23'
