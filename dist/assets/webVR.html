@@ -144,7 +144,9 @@
         effect = new THREE.VREffect(renderer);
         effect.setSize(window.innerWidth, window.innerHeight);
         // Add a repeating grid as a skybox.
+
         var loader = new THREE.TextureLoader();
+        loader.crossOrigin = '';
         loader.load('img/box.png', onTextureLoaded);
         // Create 3D objects.
         var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
@@ -179,6 +181,7 @@
         });
     }
     function onTextureLoaded(texture) {
+        console.log('texture loaded');
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set(boxSize, boxSize);
