@@ -168,7 +168,9 @@
         video.loop = true;
         video.muted = true;
         video.src = './video.mp4';
+        video.setAttribute('crossorigin', 'anonymous');
         video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
+        video.load();
         video.play();
 
         var geometrySky = new THREE.SphereBufferGeometry( 500, 60, 40 );
