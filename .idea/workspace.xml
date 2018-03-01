@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6be3935d-a186-4972-8bad-215454cf0e1b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/assets/videoWebVR.html" afterPath="$PROJECT_DIR$/dist/assets/videoWebVR.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/bundle.js" afterPath="$PROJECT_DIR$/dist/bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/bundle.js.map" afterPath="$PROJECT_DIR$/dist/bundle.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/assets/webVR.html" afterPath="$PROJECT_DIR$/dist/assets/webVR.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,8 +46,8 @@
       <file leaf-file-name="webVR.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dist/assets/webVR.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1305">
-              <caret line="87" column="49" lean-forward="false" selection-start-line="87" selection-start-column="49" selection-end-line="87" selection-end-column="67" />
+            <state relative-caret-position="442">
+              <caret line="111" column="3" lean-forward="true" selection-start-line="111" selection-start-column="3" selection-end-line="111" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -58,8 +56,8 @@
       <file leaf-file-name="videoWebVR.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dist/assets/videoWebVR.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="173" column="21" lean-forward="true" selection-start-line="173" selection-start-column="21" selection-end-line="173" selection-end-column="21" />
+            <state relative-caret-position="391">
+              <caret line="68" column="52" lean-forward="true" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -185,8 +183,8 @@
         <option value="$PROJECT_DIR$/dist/main.css" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/dist/index.html" />
-        <option value="$PROJECT_DIR$/dist/assets/webVR.html" />
         <option value="$PROJECT_DIR$/dist/assets/videoWebVR.html" />
+        <option value="$PROJECT_DIR$/dist/assets/webVR.html" />
       </list>
     </option>
   </component>
@@ -489,15 +487,15 @@
       <workItem from="1518724945193" duration="21000" />
       <workItem from="1518737066999" duration="26204000" />
       <workItem from="1519706709112" duration="114000" />
-      <workItem from="1519917635589" duration="671000" />
+      <workItem from="1519917635589" duration="2114000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59817000" />
+    <option name="totallyTimeSpent" value="61260000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="984" extended-state="6" />
+    <frame x="0" y="23" width="1920" height="984" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24907847" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -832,16 +830,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dist/assets/webVR.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="87" column="49" lean-forward="false" selection-start-line="87" selection-start-column="49" selection-end-line="87" selection-end-column="67" />
+        <state relative-caret-position="442">
+          <caret line="111" column="3" lean-forward="true" selection-start-line="111" selection-start-column="3" selection-end-line="111" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dist/assets/videoWebVR.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="173" column="21" lean-forward="true" selection-start-line="173" selection-start-column="21" selection-end-line="173" selection-end-column="21" />
+        <state relative-caret-position="391">
+          <caret line="68" column="52" lean-forward="true" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="52" />
           <folding />
         </state>
       </provider>
