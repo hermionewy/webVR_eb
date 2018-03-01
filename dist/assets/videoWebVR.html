@@ -130,7 +130,7 @@
     // EnterVRButton for rendering enter/exit UI.
     var vrButton;
     var meshSky;
-
+    var video = document.createElement( 'video' );
 
     function onLoad() {
         // Setup three.js WebGL renderer. Note: Antialiasing is a big performance hit.
@@ -162,7 +162,7 @@
         // Add a repeating grid as a skybox.
 //        var loader = new THREE.TextureLoader();
 //        loader.load('box.png', onTextureLoaded);
-        var video = document.createElement( 'video' );
+
         video.width = window.innerWidth;
         video.height = window.innerHeight;
         video.loop = true;
@@ -281,6 +281,9 @@
     }
 
     window.addEventListener('load', onLoad);
+    window.addEventListener('touchstart', function() {
+        video.paused ? video.play() : video.pause();
+    });
 
 </script>
 

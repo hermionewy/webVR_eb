@@ -55,8 +55,8 @@
       <file leaf-file-name="videoWebVR.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dist/assets/videoWebVR.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="239" column="28" lean-forward="true" selection-start-line="239" selection-start-column="28" selection-end-line="239" selection-end-column="28" />
+            <state relative-caret-position="421">
+              <caret line="284" column="52" lean-forward="false" selection-start-line="284" selection-start-column="52" selection-end-line="284" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -143,6 +143,8 @@
       <find>box.png</find>
       <find>cross</find>
       <find>onTextureLoaded</find>
+      <find>camera</find>
+      <find>video</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -492,12 +494,12 @@
       <workItem from="1518724945193" duration="21000" />
       <workItem from="1518737066999" duration="26204000" />
       <workItem from="1519706709112" duration="114000" />
-      <workItem from="1519917635589" duration="3904000" />
+      <workItem from="1519917635589" duration="4909000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63050000" />
+    <option name="totallyTimeSpent" value="64055000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="984" extended-state="0" />
@@ -841,8 +843,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dist/assets/videoWebVR.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="239" column="28" lean-forward="true" selection-start-line="239" selection-start-column="28" selection-end-line="239" selection-end-column="28" />
+        <state relative-caret-position="421">
+          <caret line="284" column="52" lean-forward="false" selection-start-line="284" selection-start-column="52" selection-end-line="284" selection-end-column="52" />
           <folding />
         </state>
       </provider>
