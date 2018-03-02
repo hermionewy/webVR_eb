@@ -5,7 +5,7 @@ camera.lookAt(camera.target);
 var geometry = new THREE.SphereGeometry(500, 60, 40);
 
 var videoElement = document.createElement('video');
-videoElement.src = '/video.mp4';
+videoElement.src = './video.mp4';
 videoElement.load();
 videoElement.crossOrigin = 'anonymous';
 videoElement.setAttribute('webkit-playsinline', 'true');
