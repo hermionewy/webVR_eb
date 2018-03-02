@@ -5,12 +5,11 @@ camera.lookAt(camera.target);
 var geometry = new THREE.SphereGeometry(500, 60, 40);
 
 var videoElement = document.createElement('video');
-videoElement.src = './video.mp4';
+videoElement.src = '/video.mp4';
 videoElement.load();
-videoElement.crossOrigin = '';
+videoElement.crossOrigin = 'anonymous';
 videoElement.setAttribute('webkit-playsinline', 'true');
 videoElement.setAttribute('playsinline', 'true');
-videoElement.play();
 
 var videoTexture = new THREE.Texture(videoElement);
 videoTexture.minFilter = THREE.LinearFilter;
@@ -36,26 +35,26 @@ effect.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 var options = {
-  color: 'black',
-  background: 'white',
-  corners: 'square',
-  textEnterVRTitle: 'Play Video'
+    color: 'black',
+    background: 'white',
+    corners: 'square',
+    textEnterVRTitle: 'Play Video'
 };
 var enterVRButton = new webvrui.EnterVRButton(renderer.domElement, options);
 enterVRButton.on('hide', function() {
-  document.getElementById('ui').style.display = 'none';
+    document.getElementById('ui').style.display = 'none';
 });
 enterVRButton.on('show', function() {
-  document.getElementById('ui').style.display = 'inherit';
+    document.getElementById('ui').style.display = 'inherit';
 });
 document.getElementById('vr-button').appendChild(enterVRButton.domElement);
 document.getElementById('no-vr').addEventListener('click', function() {
-  enterVRButton.requestEnterFullscreen();
-  videoElement.play();
+    enterVRButton.requestEnterFullscreen();
+    videoElement.play();
 });
 
 document.getElementById('vr-button').addEventListener('click', function() {
-  videoElement.play();
+    videoElement.play();
 });
 
 var interacting;
@@ -69,17 +68,17 @@ var savedLng = 0;
 animate();
 
 function animate() {
-  effect.render(scene, camera);
+    effect.render(scene, camera);
 
-  if (enterVRButton.isPresenting()) {
-    controls.update();
-  }
+    if (enterVRButton.isPresenting()) {
+        controls.update();
+    }
 
-  if( videoElement.readyState === videoElement.HAVE_ENOUGH_DATA ){
-    videoTexture.needsUpdate = true;
-  }
+    if( videoElement.readyState === videoElement.HAVE_ENOUGH_DATA ){
+        videoTexture.needsUpdate = true;
+    }
 
-  requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 }
 
 renderer.domElement.addEventListener('mousedown', onMouseDown, false);
@@ -88,28 +87,28 @@ renderer.domElement.addEventListener('mouseup', onMouseUp, false);
 window.addEventListener('resize', onResize, false);
 
 function onMouseDown(event) {
-  event.preventDefault();
-  interacting = true;
-  pointerX = event.clientX;
-  pointerY = event.clientY;
-  savedLng = lng;
-  savedLat = lat;
+    event.preventDefault();
+    interacting = true;
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    savedLng = lng;
+    savedLat = lat;
 }
 
 function onMouseMove(event) {
-  if (interacting) {
-    lng = ( pointerX - event.clientX ) * 0.1 + savedLng;
-    lat = ( pointerY - event.clientY ) * 0.1 + savedLat;
-  }
+    if (interacting) {
+        lng = ( pointerX - event.clientX ) * 0.1 + savedLng;
+        lat = ( pointerY - event.clientY ) * 0.1 + savedLat;
+    }
 }
 
 function onMouseUp(event) {
-  event.preventDefault();
-  interacting = false;
+    event.preventDefault();
+    interacting = false;
 }
 
 function onResize() {
-  effect.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+    effect.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 }
