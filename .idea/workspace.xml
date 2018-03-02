@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6be3935d-a186-4972-8bad-215454cf0e1b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/assets/img/360-video.mp4" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/assets/mobileVideoWebVR.html" afterPath="$PROJECT_DIR$/dist/assets/mobileVideoWebVR.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -63,11 +62,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mobileVideoWebVR.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mobileVideoWebVR.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dist/assets/mobileVideoWebVR.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="56" column="30" lean-forward="true" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+            <state relative-caret-position="255">
+              <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dist/assets/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dist/assets/script.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -98,16 +117,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="465">
               <caret line="31" column="22" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="31" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="yelpRequest2.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yelpRequest2.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="16" lean-forward="false" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -191,6 +200,8 @@
         <option value="$PROJECT_DIR$/dist/assets/webVR.html" />
         <option value="$PROJECT_DIR$/dist/assets/videoWebVR.html" />
         <option value="$PROJECT_DIR$/dist/assets/mobileVideoWebVR.html" />
+        <option value="$PROJECT_DIR$/dist/assets/index.html" />
+        <option value="$PROJECT_DIR$/dist/assets/script.js" />
       </list>
     </option>
   </component>
@@ -211,7 +222,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+    <option name="x" value="81" />
+    <option name="y" value="49" />
     <option name="width" value="1920" />
     <option name="height" value="984" />
   </component>
@@ -251,13 +263,6 @@
               <item name="eastBoston1" type="462c0819:PsiDirectoryNode" />
               <item name="dist" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eastBoston1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eastBoston1" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="eastBoston1" type="b2602c69:ProjectViewProjectNode" />
@@ -505,11 +510,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69623000" />
+    <option name="totallyTimeSpent" value="70052000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="984" extended-state="0" />
-    <editor active="true" />
+    <frame x="81" y="49" width="1920" height="984" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24907847" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -550,14 +554,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/modules/menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="33" column="14" lean-forward="false" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/data/yelpData.js" />
     <entry file="file://$PROJECT_DIR$/dist/data/EastBoston311.csv" />
     <entry file="file://$PROJECT_DIR$/dist/processedData/eastBostonInspection.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -859,8 +855,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dist/assets/mobileVideoWebVR.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="56" column="30" lean-forward="true" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+        <state relative-caret-position="255">
+          <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/assets/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/assets/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding />
         </state>
       </provider>
