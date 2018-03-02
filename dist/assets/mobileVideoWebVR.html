@@ -52,12 +52,14 @@
     var geometry = new THREE.SphereGeometry(500, 60, 40);
 
     var videoElement = document.createElement('video');
-    videoElement.src = './video.mp4';
+    videoElement.src = './img/360-video.mp4';
+    videoElement.loop = true;
+    videoElement.muted = true;
     videoElement.load();
     videoElement.crossOrigin = '';
     videoElement.setAttribute('webkit-playsinline', 'true');
     videoElement.setAttribute('playsinline', 'true');
-    videoElement.play();
+//    videoElement.play();
 
     var videoTexture = new THREE.Texture(videoElement);
     videoTexture.minFilter = THREE.LinearFilter;
