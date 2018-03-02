@@ -177,8 +177,20 @@
         geometrySky.scale( -1, 1, 1 );
 
         var texture = new THREE.VideoTexture( video );
-        texture.minFilter = THREE.LinearFilter;
+//        texture.minFilter = THREE.LinearFilter;
+//        texture.format = THREE.RGBFormat;
+        texture.minFilter = THREE.NearestFilter;
+        texture.maxFilter = THREE.NearestFilter;
         texture.format = THREE.RGBFormat;
+
+        setInterval( function () {
+            if ( video.readyState >= video.HAVE_CURRENT_DATA ) {
+
+                texture.needsUpdate = true;
+
+            }
+
+        }, 1000 / 25 );
 
         var materialSky = new THREE.MeshBasicMaterial( { map: texture } );
         meshSky = new THREE.Mesh( geometrySky, materialSky );
