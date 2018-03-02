@@ -185,7 +185,6 @@
 
         var materialSky = new THREE.MeshBasicMaterial( { map: videoTexture, side: THREE.DoubleSide } );
         meshSky = new THREE.Mesh( geometrySky, materialSky );
-        meshSky.scale.x = -1;
         meshSky.rotation.y = -Math.PI / 2;
         scene.add( meshSky );
         setupStage();
