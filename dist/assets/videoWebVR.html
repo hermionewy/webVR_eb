@@ -281,9 +281,7 @@
     }
 
     window.addEventListener('load', onLoad);
-    window.addEventListener('touchstart', function() {
-        video.paused ? video.play() : video.pause();
-    });
+    window.addEventListener('touchstart', onLoad);
 
 </script>
 
