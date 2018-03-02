@@ -131,6 +131,7 @@
     var vrButton;
     var meshSky;
     var video = document.createElement( 'video' );
+    var videoTexture;
 
     function onLoad() {
         // Setup three.js WebGL renderer. Note: Antialiasing is a big performance hit.
@@ -168,32 +169,23 @@
         video.loop = true;
         video.muted = true;
         video.src = './video.mp4';
-        video.setAttribute('crossorigin', '');
-        video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
+        video.crossOrigin = '';
+        video.setAttribute('webkit-playsinline', 'true');
+        video.setAttribute('playsinline', 'true');
         video.load();
         video.play();
 
         var geometrySky = new THREE.SphereBufferGeometry( 500, 60, 40 );
         geometrySky.scale( -1, 1, 1 );
 
-        var texture = new THREE.VideoTexture( video );
-//        texture.minFilter = THREE.LinearFilter;
-//        texture.format = THREE.RGBFormat;
-        texture.minFilter = THREE.NearestFilter;
-        texture.maxFilter = THREE.NearestFilter;
-        texture.format = THREE.RGBFormat;
+        videoTexture = new THREE.VideoTexture( video );
+        videoTexture.minFilter = THREE.LinearFilter;
+        videoTexture.magFilter = THREE.LinearFilter;
+        videoTexture.format = THREE.RGBFormat;
 
-        setInterval( function () {
-            if ( video.readyState >= video.HAVE_CURRENT_DATA ) {
-
-                texture.needsUpdate = true;
-
-            }
-
-        }, 1000 / 25 );
-
-        var materialSky = new THREE.MeshBasicMaterial( { map: texture } );
+        var materialSky = new THREE.MeshBasicMaterial( { map: videoTexture, side: THREE.DoubleSide } );
         meshSky = new THREE.Mesh( geometrySky, materialSky );
+        meshSky.scale.x = -1;
         meshSky.rotation.y = -Math.PI / 2;
         scene.add( meshSky );
         setupStage();
@@ -233,6 +225,10 @@
         document.getElementById('magic-window').addEventListener('click', function() {
             vrButton.requestEnterFullscreen();
         });
+
+        document.getElementById('vr-button').addEventListener('click', function() {
+            videoElement.play();
+        });
     }
 
 
@@ -248,6 +244,9 @@
         // Only update controls if we're presenting.
         if (vrButton.isPresenting()) {
             controls.update();
+        }
+        if( video.readyState === video.HAVE_ENOUGH_DATA ){
+            video.needsUpdate = true;
         }
         // Render the scene.
         effect.render(scene, camera);
