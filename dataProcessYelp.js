@@ -1,30 +1,56 @@
 const d3 = require('d3');
 
 d3.queue()
-    //.defer(d3.json, "http://localhost:9000/yelp/yelpBar.json")
-    .defer(d3.json, "http://localhost:9000/yelp/yelpNearEB.json")
-    .await(function(err, data) {
-        console.log(data);
-        console.log(data.response.venues.length);
-        console.log(data.response.venues[0]);
-        //console.log(data.response.groups.items.length);
-                var restaurants = data.response.venues;
-                var newData = restaurants.map(function (obj) {
+    .defer(d3.json, "http://localhost:9000/yelp/EBosYelpFoodSection.json")
+    .defer(d3.json, "http://localhost:9000/yelp/EBosYelpDrinkSection.json")
+    .defer(d3.json, "http://localhost:9000/yelp/EBosYelpCoffeeSection.json")
+    .await(function(err, food, drink, coffee) {
+
+        console.log(food.response.groups[0].items.length);
+        console.log(drink.response.groups[0].items.length);
+        console.log(coffee.response.groups[0].items.length);
+
+        var allVenue = food.response.groups[0].items.concat(drink.response.groups[0].items, coffee.response.groups[0].items)
+        console.log(allVenue.length);
+
+        var ebVenue = allVenue.filter(function (d) {
+            return d.venue.location.postalCode == '02128'
+        });
+        console.log(ebVenue.length);
+        console.log(ebVenue[0]);
+
+        // console.log(filteredData.length);
+                var newData = ebVenue.map(function (d) {
+                    var obj = d.venue;
                     return {
-                        'name': obj.venue.name,
-                        'location': [obj.venue.location.lat, obj.venue.location.lng],
-                        'category': (obj.venue.categories.length)?obj.venue.categories[0].name: 'none',
-                        'checkinCount': obj.venue.stats.checkinsCount,
-                        'userCount': obj.venue.stats.usersCount,
-                        'tipCount': obj.venue.stats.tipCount,
-                        'address': obj.venue.location.address,
-                        'url': obj.venue.url,
-                        'rating': obj.venue.rating,
-                        'ratingColor':obj.venue.ratingColor,
-                        'ratingSignals': obj.venue.ratingSignals,
-                        'zip': obj.venue.location.postalCode,
+                        'name': obj.name,
+                        'location': [+obj.location.lat, +obj.location.lng],
+                        'category': (obj.categories.length)?obj.categories[0].name: 'none',
+                        'checkinCount': obj.stats.checkinsCount,
+                        'userCount': obj.stats.usersCount,
+                        'tipCount': obj.stats.tipCount,
+                        'address': obj.location.address,
+                        'url': obj.url,
+                        'rating': obj.rating,
+                        'ratingColor':"#"+obj.ratingColor,
+                        'ratingSignals': obj.ratingSignals,
+                        'zip': obj.location.postalCode,
+                        'comment': getTips(d.tips)
                     }
                 });
+
+                function getTips(arr) {
+                    var alltip = [];
+                    if(arr && arr.length){
+                        arr.forEach(function (t) {
+                            alltip.push({
+                                'text': t.text,
+                                'user': t.user.lastName? (t.user.firstName+' '+ t.user.lastName): t.user.firstName
+                            })
+                        })
+                    }
+                    return alltip;
+                }
 
                 console.log(newData.length);
                 console.log(newData[0]);
@@ -46,9 +72,10 @@ d3.queue()
 
 
 
-        writeJsonFile(newData, "dist/processedData/yelpNearEB.json", () => {
+        writeJsonFile(newData, "dist/processedData/yelpfoodDrinkCoffeeEB.json", () => {
            console.log('err');
     });
+
     });
 
 

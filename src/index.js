@@ -31,7 +31,7 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
     d3.queue()
 		.defer(d3.json, './data/eb_neighborhood.geojson')
 		.defer(d3.json, './data/eastBostonInspection2.json')
-        .defer(d3.json, './processedData/yelpAllEast.json')
+        .defer(d3.json, './processedData/yelpfoodDrinkCoffeeEB.json')
         // .defer(d3.csv, './data/liquor-licenses.csv', parseLiquor)
 		.await(dataloaded);
 
@@ -74,42 +74,44 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
         var bounds = geoJson.getBounds();
         // var overlay = L.imageOverlay('./data/MHIMetroBos.png',bounds, {opacity: 0.5}).addTo(map);
 
+        yelp.forEach(function (y) {
+            var circleStyle = {
+                color: colorPopular(y.rating),
+                //color: colorByNum(obj.values.length),
+                stroke: false,
+                radius: 50,
+                fillOpacity: 0.7
+            };
+            var circle = L.circle(y.location, circleStyle).bindPopup(y.name +'<br/>'+y.rating);
+            yelpGroup.addLayer(circle);
+        });
 
-        // liquor.forEach(function (d) {
-        //         var circleStyle = {
-        //             color: 'black',
-        //             radius: 50,
-        //             fillOpacity: 0
-        //         };
-        //         var circle = L.circle([d.lat, d.lng], circleStyle).bindPopup(d.name);
-        //     liquorGroup.addLayer(circle);
-        // });
+        function colorPopular(num){
+            if(num<6){
+                return '#91bfdb'
+            } else if(num <7){
+                return '#e0f3f8'
+            } else if(num< 8){
+                return '#fee090'
+            } else if(num<9){
+                return '#fc8d59'
+            } else if (num<10){
+                return '#d73027'
+            } else{
+                return '#4575b4'
+            }
+        }
 
-
-
-
-        // yelp.forEach(function (y) {
+        // nestedData.forEach(function (obj) {
         //     var circleStyle = {
-        //         color: 'steelblue',
-        //         //color: colorByNum(obj.values.length),
+        //         color: colorByNum(obj.values.length),
         //         stroke: false,
         //         radius: 20,
         //         fillOpacity: 0.7
         //     };
-        //     var circle = L.circle(y.location, circleStyle).bindPopup(y.name +'<br/>'+y.rating);
-        //     yelpGroup.addLayer(circle);
+        //     var circle = L.circle(obj.values[0].location, circleStyle).bindPopup(obj.values[0].businessName +'<br/>'+obj.values.length);
+        //     circleGroup.addLayer(circle);
         // });
-
-        nestedData.forEach(function (obj) {
-            var circleStyle = {
-                color: colorByNum(obj.values.length),
-                stroke: false,
-                radius: 20,
-                fillOpacity: 0.7
-            };
-            var circle = L.circle(obj.values[0].location, circleStyle).bindPopup(obj.values[0].businessName +'<br/>'+obj.values.length);
-            circleGroup.addLayer(circle);
-        });
 
     }
 
