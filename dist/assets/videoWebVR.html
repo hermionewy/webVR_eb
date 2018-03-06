@@ -130,7 +130,8 @@
     // EnterVRButton for rendering enter/exit UI.
     var vrButton;
     var meshSky;
-
+    var video = document.createElement( 'video' );
+    var videoTexture;
 
     function onLoad() {
         // Setup three.js WebGL renderer. Note: Antialiasing is a big performance hit.
@@ -162,38 +163,42 @@
         // Add a repeating grid as a skybox.
 //        var loader = new THREE.TextureLoader();
 //        loader.load('box.png', onTextureLoaded);
-        var video = document.createElement( 'video' );
+
         video.width = window.innerWidth;
         video.height = window.innerHeight;
         video.loop = true;
         video.muted = true;
         video.src = './video.mp4';
-        video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
+        video.crossOrigin = '';
+        video.setAttribute('webkit-playsinline', 'true');
+        video.setAttribute('playsinline', 'true');
+        video.load();
         video.play();
 
         var geometrySky = new THREE.SphereBufferGeometry( 500, 60, 40 );
         geometrySky.scale( -1, 1, 1 );
 
-        var texture = new THREE.VideoTexture( video );
-        texture.minFilter = THREE.LinearFilter;
-        texture.format = THREE.RGBFormat;
+        videoTexture = new THREE.VideoTexture( video );
+        videoTexture.minFilter = THREE.LinearFilter;
+        videoTexture.magFilter = THREE.LinearFilter;
+        videoTexture.format = THREE.RGBFormat;
 
-        var materialSky = new THREE.MeshBasicMaterial( { map: texture } );
+        var materialSky = new THREE.MeshBasicMaterial( { map: videoTexture, side: THREE.DoubleSide } );
         meshSky = new THREE.Mesh( geometrySky, materialSky );
         meshSky.rotation.y = -Math.PI / 2;
         scene.add( meshSky );
         setupStage();
 
         // Create 3D objects.
-//        var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-//        var material = new THREE.MeshNormalMaterial();
-//        cube = new THREE.Mesh(geometry, material);
-//
-//        // Position cube mesh to be right in front of you.
-//        cube.position.set(0, controls.userHeight, -1);
-//
-//        // Add cube mesh to your three.js scene
-//        scene.add(cube);
+        var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+        var material = new THREE.MeshNormalMaterial();
+        cube = new THREE.Mesh(geometry, material);
+
+        // Position cube mesh to be right in front of you.
+        cube.position.set(0, controls.userHeight, -1);
+
+        // Add cube mesh to your three.js scene
+        scene.add(cube);
 
         window.addEventListener('resize', onResize, true);
         window.addEventListener('vrdisplaypresentchange', onResize, true);
@@ -219,6 +224,10 @@
         document.getElementById('magic-window').addEventListener('click', function() {
             vrButton.requestEnterFullscreen();
         });
+
+        document.getElementById('vr-button').addEventListener('click', function() {
+            videoElement.play();
+        });
     }
 
 
@@ -229,11 +238,14 @@
         lastRenderTime = timestamp;
 
         // Apply rotation to cube mesh
-//        cube.rotation.y += delta * 0.0006;
+        cube.rotation.y += delta * 0.0006;
 
         // Only update controls if we're presenting.
         if (vrButton.isPresenting()) {
             controls.update();
+        }
+        if( video.readyState === video.HAVE_ENOUGH_DATA ){
+            video.needsUpdate = true;
         }
         // Render the scene.
         effect.render(scene, camera);
@@ -279,6 +291,7 @@
     }
 
     window.addEventListener('load', onLoad);
+    window.addEventListener('touchstart', onLoad);
 
 </script>
 
