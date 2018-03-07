@@ -27,6 +27,9 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
         // dragging: false
     });
 
+var circleGroup = L.featureGroup();
+var yelpGroup = L.featureGroup();
+var liquorGroup = L.featureGroup();
 
     d3.queue()
 		.defer(d3.json, './data/eb_neighborhood.geojson')
@@ -65,26 +68,93 @@ var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHei
         var geoJson = L.geoJSON(geo, geoJsonStyle);
         geoJson.addTo(map);
 
-        var circleGroup = L.featureGroup();
-        var yelpGroup = L.featureGroup();
-        var liquorGroup = L.featureGroup();
+
         circleGroup.addTo(map);
         yelpGroup.addTo(map);
         liquorGroup.addTo(map);
         var bounds = geoJson.getBounds();
         // var overlay = L.imageOverlay('./data/MHIMetroBos.png',bounds, {opacity: 0.5}).addTo(map);
 
-        yelp.forEach(function (y) {
+
+        var info = L.control();
+
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+// method that we will use to update the control based on feature properties passed
+        info.update = function (props) {
+            this._div.innerHTML = '<h4>Restaurants</h4>'+ (props ?
+                '<b>' + props.name + '</b><br />Category: ' + props.category + '<br/>' +'Rating: '+ props.rating +' / ' +props.ratingSignal
+                : 'Hover over a circle');
+        };
+
+        info.addTo(map);
+
+        yelp.forEach(function (y, id) {
             var circleStyle = {
-                color: colorPopular(y.rating),
+                fillColor: colorPopular(y.rating),
                 //color: colorByNum(obj.values.length),
                 stroke: false,
                 radius: 50,
-                fillOpacity: 0.7
+                fillOpacity: 0.8,
+                className: y.name +'-' +y.category + '-' +y.rating +'-'+ y.ratingSignals
             };
             var circle = L.circle(y.location, circleStyle).bindPopup(y.name +'<br/>'+y.rating);
             yelpGroup.addLayer(circle);
         });
+
+        yelpGroup.eachLayer(function (layer) {
+            console.log(layer);
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+            });
+
+        });
+
+        function highlightFeature(e) {
+            var layer = e.target;
+            var allInfo = e.target.options.className.split('-');
+            var data = {
+                    name:allInfo[0],
+                    category: allInfo[1],
+                    rating: allInfo[2],
+                    ratingSignal: allInfo[3]
+                };
+
+            console.log(name);
+            layer.setStyle({
+                weight: 2,
+                stroke: true,
+                color: '#666',
+                fillColor: layer.options.fillColor,
+                fillOpacity: 0.6
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+
+            info.update(data);
+        }
+
+        function resetHighlight(e) {
+            var layer = e.target;
+            console.log(layer);
+            //var rating = e.target.options.className.split('-')[1];
+
+            layer.setStyle({
+                fillColor: layer.options.fillColor,
+                stroke: false,
+                radius: 50,
+                fillOpacity: 0.8
+            });
+            info.update();
+        }
+
 
         function colorPopular(num){
             if(num<6){
