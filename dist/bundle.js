@@ -71,10 +71,14 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	//Create instances of all modules (views)
-	var map;
-	var zoomLevel = 14;
+	var map, mapViol;
+	var zoomLevel = 13.5;
 	var viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+	var food = ["Spoilage Unsafe Food", "Cold Holding", "Hot Holding", "Food Utensil Storage", "Food Protection"];
+	var management = ["PIC knowledge", "PIC Performing Duties", "Consumer Advisories", "Location Accessible"];
+	var sanitation = ["Separation/Sanitizer Criteria", "Food Contact Surfaces Clean", "Insects Rodents Animals", "Toxic Items"];
+	
 	var viewLatLng = [42.3751185, -71.001264];
 	if (viewWidth <= 768) {
 	    zoomLevel = 13;
@@ -90,18 +94,32 @@
 	    // doubleClickZoom: false,
 	    // dragging: false
 	});
+	mapViol = L.map("map-viol", {
+	    center: [42.375414, -71.016625],
+	    zoom: zoomLevel,
+	    scrollWheelZoom: false,
+	    zoomSnap: 0.5,
+	    zoomControl: false,
+	    attributionControl: false,
+	    doubleClickZoom: false,
+	    dragging: false
+	});
+	
+	var opacitytile = 'https://api.mapbox.com/styles/v1/wuyuyanran/cjd3wow5b2spz2sp53m9rcal8/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid3V5dXlhbnJhbiIsImEiOiJjamN6ODhzczMwb2UyMndxb3lsN3JkZGNwIn0.kBRE1lc7gqCbjF7r2YKhow';
+	var mapTile = L.tileLayer(opacitytile, {
+	    id: 'mapbox.opacity',
+	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
 	
 	var circleGroup = L.featureGroup();
 	var yelpGroup = L.featureGroup();
-	var liquorGroup = L.featureGroup();
+	var circleGroupViol = L.featureGroup();
 	
-	d3.queue().defer(d3.json, './data/eb_neighborhood.geojson').defer(d3.json, './data/eastBostonInspection2.json').defer(d3.json, './processedData/yelpfoodDrinkCoffeeEB.json')
+	d3.queue().defer(d3.json, './data/eb_neighborhood.geojson').defer(d3.json, './data/eastBostonInspection2.json').defer(d3.json, './processedData/yelpfoodDrinkCoffeeEB.json') //63 restaurants
 	// .defer(d3.csv, './data/liquor-licenses.csv', parseLiquor)
 	.await(dataloaded);
 	
 	function dataloaded(err, geo, data0, yelp) {
-	    // console.log(data);
-	    // console.log(geo);
 	    console.log(yelp.length);
 	
 	    var geoJsonStyle = {
@@ -113,25 +131,50 @@
 	    };
 	
 	    var data = data0.filter(function (d) {
-	        return d.violStatus == 'Fail';
+	        return d.violStatus == 'Fail' && isLastYear(d.violateDate);
 	    });
+	
+	    console.log(data);
 	    var nestedData = d3.nest().key(function (d) {
 	        return d.location;
 	    }).entries(data);
 	
-	    console.log(nestedData);
+	    console.log(nestedData); //161 stores
+	
+	    var restaurantsWithViol = [];
+	    yelp.forEach(function (yp) {
+	        yp.violations = [];
+	        for (var i = 0; i < nestedData.length; i++) {
+	            if (nospace_low(nestedData[i].values[0].address) == nospace_low(yp.address) && nospace_low(yp.address)) {
+	                yp.violations = nestedData[i].values;
+	            }
+	        }
+	        restaurantsWithViol.push(yp);
+	    });
+	    console.log(restaurantsWithViol); //63 stores
+	
+	
+	    function nospace_low(str) {
+	        var newStr;
+	        if (typeof str == "string") {
+	            newStr = str.replace(/ +/g, "");
+	            return newStr.toLowerCase();
+	        }
+	        return '';
+	    }
 	
 	    var nestedByViolation = d3.nest().key(function (d) {
 	        return d.violDesc;
 	    }).entries(data);
-	    console.log(nestedByViolation);
+	    console.log(nestedByViolation); //73 violations
 	
 	    var geoJson = L.geoJSON(geo, geoJsonStyle);
 	    geoJson.addTo(map);
+	    geoJson.addTo(mapViol);
 	
 	    circleGroup.addTo(map);
 	    yelpGroup.addTo(map);
-	    liquorGroup.addTo(map);
+	    circleGroupViol.addTo(mapViol);
 	    var bounds = geoJson.getBounds();
 	    // var overlay = L.imageOverlay('./data/MHIMetroBos.png',bounds, {opacity: 0.5}).addTo(map);
 	
@@ -146,12 +189,12 @@
 	
 	    // method that we will use to update the control based on feature properties passed
 	    info.update = function (props) {
-	        this._div.innerHTML = '<h4>Restaurants</h4>' + (props ? '<b>' + props.name + '</b><br />Category: ' + props.category + '<br/>' + 'Rating: ' + props.rating + ' / ' + props.ratingSignal : 'Hover over a circle');
+	        this._div.innerHTML = '<h4>Restaurants</h4>' + (props ? '<b>' + props.name + '</b><br />Category: ' + props.category + '<br/>' + (props.rating != 'undefined' ? 'Rating: ' + props.rating + ' / ' + props.ratingSignal : '') : 'Hover over a circle');
 	    };
 	
 	    info.addTo(map);
 	
-	    yelp.forEach(function (y, id) {
+	    restaurantsWithViol.forEach(function (y, id) {
 	        var circleStyle = {
 	            fillColor: colorPopular(y.rating),
 	            //color: colorByNum(obj.values.length),
@@ -160,17 +203,62 @@
 	            fillOpacity: 0.8,
 	            className: y.name + '-' + y.category + '-' + y.rating + '-' + y.ratingSignals
 	        };
-	        var circle = L.circle(y.location, circleStyle).bindPopup(y.name + '<br/>' + y.rating);
+	        var circle = L.circle(y.location, circleStyle);
+	        if (y.violations.length) {
+	            var allV = '';
+	            for (var num = 0; num < y.violations.length; num++) {
+	                allV = allV.concat(y.violations[num].comments + '<br/>');
+	            }
+	            circle.bindPopup(y.name + '<br/>Number of Violations: ' + y.violations.length + '<br/>Violations:<br/><div class="viol-scroll">' + allV + '</div>');
+	        } else {
+	            circle.bindPopup(y.name + '<br/>No food violations detected.');
+	        }
+	
 	        yelpGroup.addLayer(circle);
 	    });
 	
 	    yelpGroup.eachLayer(function (layer) {
-	        console.log(layer);
 	        layer.on({
 	            mouseover: highlightFeature,
 	            mouseout: resetHighlight
 	        });
 	    });
+	
+	    var legend = L.control({ position: 'bottomright' });
+	
+	    legend.onAdd = function (map) {
+	
+	        var div = L.DomUtil.create('div', 'info legend'),
+	            grades = [0, 6, 7, 8, 9, 10],
+	            labels = [];
+	
+	        // loop through our density intervals and generate a label with a colored square for each interval
+	        for (var i = 0; i < grades.length; i++) {
+	            div.innerHTML += '<i style="background:' + colorPopular(grades[i] + 1) + '"></i> ' + (grades[i + 1] ? grades[i] + '&ndash;' + grades[i + 1] + '<br>' : 'No ratings');
+	        }
+	
+	        return div;
+	    };
+	
+	    legend.addTo(map);
+	
+	    var legendViol = L.control({ position: 'bottomright' });
+	
+	    legend.onAdd = function (map) {
+	
+	        var div = L.DomUtil.create('div', 'info legend'),
+	            grades = [0, 3, 6, 9, 12, 18],
+	            labels = [];
+	
+	        // loop through our density intervals and generate a label with a colored square for each interval
+	        for (var i = 0; i < grades.length; i++) {
+	            div.innerHTML += '<i style="background:' + colorByNum(grades[i] + 1) + '"></i> ' + (grades[i + 1] ? grades[i] + '&ndash;' + grades[i + 1] + '<br>' : 'No ratings');
+	        }
+	
+	        return div;
+	    };
+	
+	    legendViol.addTo(mapViol);
 	
 	    function highlightFeature(e) {
 	        var layer = e.target;
@@ -181,8 +269,6 @@
 	            rating: allInfo[2],
 	            ratingSignal: allInfo[3]
 	        };
-	
-	        console.log(name);
 	        layer.setStyle({
 	            weight: 2,
 	            stroke: true,
@@ -200,9 +286,6 @@
 	
 	    function resetHighlight(e) {
 	        var layer = e.target;
-	        console.log(layer);
-	        //var rating = e.target.options.className.split('-')[1];
-	
 	        layer.setStyle({
 	            fillColor: layer.options.fillColor,
 	            stroke: false,
@@ -213,31 +296,37 @@
 	    }
 	
 	    function colorPopular(num) {
-	        if (num < 6) {
+	        if (num <= 6) {
+	            return '#4575b4';
+	        } else if (num <= 7) {
 	            return '#91bfdb';
-	        } else if (num < 7) {
-	            return '#e0f3f8';
-	        } else if (num < 8) {
+	        } else if (num <= 8) {
 	            return '#fee090';
-	        } else if (num < 9) {
+	        } else if (num <= 9) {
 	            return '#fc8d59';
-	        } else if (num < 10) {
+	        } else if (num <= 10) {
 	            return '#d73027';
 	        } else {
-	            return '#4575b4';
+	            return '#888';
 	        }
 	    }
 	
-	    // nestedData.forEach(function (obj) {
-	    //     var circleStyle = {
-	    //         color: colorByNum(obj.values.length),
-	    //         stroke: false,
-	    //         radius: 20,
-	    //         fillOpacity: 0.7
-	    //     };
-	    //     var circle = L.circle(obj.values[0].location, circleStyle).bindPopup(obj.values[0].businessName +'<br/>'+obj.values.length);
-	    //     circleGroup.addLayer(circle);
-	    // });
+	    nestedData.forEach(function (obj) {
+	        var circleStyle = {
+	            color: colorByNum(obj.values.length),
+	            stroke: false,
+	            radius: 30,
+	            fillOpacity: 0.7
+	        };
+	        var circle = L.circle(obj.values[0].location, circleStyle).bindPopup(obj.values[0].businessName + '<br/>Number of Violations: ' + obj.values.length);
+	        circle.on('mouseover', function (e) {
+	            this.openPopup();
+	        });
+	        circle.on('mouseout', function (e) {
+	            this.closePopup();
+	        });
+	        circleGroupViol.addLayer(circle);
+	    });
 	}
 	
 	function parseLiquor(d) {
@@ -250,23 +339,28 @@
 	    };
 	}
 	function colorByNum(num) {
-	    if (num < 10) {
-	        return '#29dc2f';
-	    } else if (num < 20) {
+	    if (num <= 3) {
 	        return '#9ac74f';
-	    } else if (num < 30) {
+	    } else if (num <= 6) {
 	        return '#dac91c';
-	    } else if (num < 40) {
+	    } else if (num <= 9) {
 	        return '#ffbe42';
-	    } else if (num < 50) {
+	    } else if (num <= 12) {
 	        return '#ff7f24';
-	    } else if (num < 60) {
+	    } else if (num <= 15) {
 	        return '#ff0000';
-	    } else if (num < 70) {
+	    } else if (num <= 18) {
 	        return '#bc0000';
 	    } else {
 	        return '#7a0b23';
 	    }
+	}
+	
+	function isLastYear(str) {
+	    if (str && str.split('-')[0] == '2017') {
+	        return true;
+	    }
+	    return false;
 	}
 
 /***/ }),
@@ -59912,7 +60006,7 @@
 	
 	
 	// module
-	exports.push([module.id, "#map{\n\twidth: 100vw;\n\theight: 100vh;\n\tbackground-color: white;\n}\n.info {\n\tpadding: 6px 8px;\n\tfont: 14px/16px Arial, Helvetica, sans-serif;\n\tbackground: white;\n\tbackground: rgba(255,255,255,0.8);\n\tbox-shadow: 0 0 15px rgba(0,0,0,0.2);\n\tborder-radius: 5px;\n}\n.info h4 {\n\tmargin: 0 0 5px;\n\tcolor: #777;\n}", ""]);
+	exports.push([module.id, "body{\n\toverflow-x: hidden;\n}\nh1.EastBoston_head{\n\tmargin-bottom: 20px;\n}\n.credit{\n\tmargin-bottom: 50px;\n}\n.hedImg{\n\twidth: 100%;\n\tmargin: 50px 0 50px 0;\n}\n.eb-content{\n\tfont-family:'Times';\n\tfont-size: 1.75rem;\n\tline-height: 2.5rem;\n}\n#map{\n\tmargin-top: 50px;\n\tmin-height: 600px;\n\twidth: 100%;\n\tbackground-color: white;\n}\n.videoContainer{\n\tposition: relative;\n\twidth: 100%;\n\tmin-height: 400px;\n\toverflow: hidden;\n}\n\niframe {\n\tposition: absolute;\n\ttop:0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tborder: 0;\n}\n.info {\n\tpadding: 6px 8px;\n\tfont: 14px/16px Arial, Helvetica, sans-serif;\n\tbackground: white;\n\tbackground: rgba(255,255,255,0.8);\n\tbox-shadow: 0 0 15px rgba(0,0,0,0.2);\n\tborder-radius: 5px;\n}\n.info h4 {\n\tmargin: 0 0 5px;\n\tcolor: #777;\n}\n.row{\n\tmargin-left:0px;\n\tmargin-right: 0px;\n}\n.food-vio-list{\n\tfont-family:'Times';\n\tline-height: 2.5rem;\n}\n.viol-cat{\n\tbackground-color: #e08304;\n\tcolor:white;\n\tpadding: 15px;\n\tmargin: 8px;\n\tmin-height: 200px;\n}\n.viol-scroll{\n\tmax-height: 130px;\n\toverflow-y: scroll;\n\tbox-shadow: 1px 1px 2px 2px #888888;\n\tpadding: 5px;\n}\n#map-viol{\n\tmin-height: 600px;\n\twidth: 100%;\n\tbackground-color: white;\n}\n.viol-item{\n\tposition: relative;\n\tleft: 90%;\n\twidth: 120px;\n\tmin-height: 40px;\n\tpadding: 5px;\n\tbackground-color: orange;\n\tcolor: white;\n\tz-index: 1000;\n}\n\n.food-viol{\n\ttop: 100px;\n}\n.management-viol{\n\ttop: 160px;\n}\n.sanitation-viol{\n\ttop: 220px;\n}\n.other-viol{\n\ttop: 280px\n}\n.legend {\n\tline-height: 18px;\n\tcolor: #555;\n}\n.legend i {\n\twidth: 18px;\n\theight: 18px;\n\tfloat: left;\n\tmargin-right: 8px;\n\topacity: 0.7;\n}", ""]);
 	
 	// exports
 
