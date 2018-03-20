@@ -244,7 +244,7 @@
 	
 	    var legendViol = L.control({ position: 'bottomright' });
 	
-	    legend.onAdd = function (map) {
+	    legendViol.onAdd = function (map) {
 	
 	        var div = L.DomUtil.create('div', 'info legend'),
 	            grades = [0, 3, 6, 9, 12, 18],
@@ -252,12 +252,12 @@
 	
 	        // loop through our density intervals and generate a label with a colored square for each interval
 	        for (var i = 0; i < grades.length; i++) {
-	            div.innerHTML += '<i style="background:' + colorByNum(grades[i] + 1) + '"></i> ' + (grades[i + 1] ? grades[i] + '&ndash;' + grades[i + 1] + '<br>' : 'No ratings');
+	            div.innerHTML += '<i style="background:' + colorByNum(grades[i] + 1) + '"></i> ' + (grades[i + 1] ? grades[i] + '&ndash;' + grades[i + 1] + '<br>' : '18+');
 	        }
 	
 	        return div;
 	    };
-	
+	    //
 	    legendViol.addTo(mapViol);
 	
 	    function highlightFeature(e) {
