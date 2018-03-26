@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
 
 //Create instances of all modules (views)
-var map, mapViol;
+var map, mapViol, mapGood;
     var zoomLevel = 13.5;
 var viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -41,6 +41,18 @@ var sanitation = ["Separation/Sanitizer Criteria", "Food Contact Surfaces Clean"
         dragging: false
     });
 
+    mapGood = L.map("mapGood", {
+        center: [42.375414, -71.016625],
+        zoom: zoomLevel,
+        scrollWheelZoom: false,
+        zoomSnap: 0.5,
+        zoomControl: false,
+        attributionControl: false,
+        doubleClickZoom: false,
+        dragging: false
+    });
+
+
 var opacitytile = 'https://api.mapbox.com/styles/v1/wuyuyanran/cjd3wow5b2spz2sp53m9rcal8/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid3V5dXlhbnJhbiIsImEiOiJjamN6ODhzczMwb2UyMndxb3lsN3JkZGNwIn0.kBRE1lc7gqCbjF7r2YKhow';
 var mapTile = L.tileLayer(opacitytile, {
     id: 'mapbox.opacity',
@@ -50,15 +62,17 @@ var mapTile = L.tileLayer(opacitytile, {
 var circleGroup = L.featureGroup();
 var yelpGroup = L.featureGroup();
 var circleGroupViol = L.featureGroup();
+var circleGoodStores = L.featureGroup().addTo(mapGood);
 
     d3.queue()
 		.defer(d3.json, './data/eb_neighborhood.geojson')
 		.defer(d3.json, './data/eastBostonInspection2.json')
         .defer(d3.json, './processedData/yelpfoodDrinkCoffeeEB.json') //63 restaurants
+        .defer(d3.json, './processedData/parsedSafeStores.json') //63 restaurants
         // .defer(d3.csv, './data/liquor-licenses.csv', parseLiquor)
 		.await(dataloaded);
 
-    function dataloaded(err, geo, data0, yelp) {
+    function dataloaded(err, geo, data0, yelp, store) {
 		console.log(yelp.length);
 
         var geoJsonStyle = {
@@ -112,6 +126,7 @@ var circleGroupViol = L.featureGroup();
         var geoJson = L.geoJSON(geo, geoJsonStyle);
         geoJson.addTo(map);
         geoJson.addTo(mapViol);
+        geoJson.addTo(mapGood);
 
 
         circleGroup.addTo(map);
@@ -179,12 +194,13 @@ var circleGroupViol = L.featureGroup();
             var div = L.DomUtil.create('div', 'info legend'),
                 grades = [0, 6, 7, 8, 9, 10],
                 labels = [];
-
+            div.innerHTML = '<p>YELP RATINGS</p>';
             // loop through our density intervals and generate a label with a colored square for each interval
             for (var i = 0; i < grades.length; i++) {
+                var stars = getStars(grades[i]);
                 div.innerHTML +=
-                    '<i style="background:' + colorPopular(grades[i]+1) + '"></i> ' +
-                     (grades[i + 1] ? grades[i] +'&ndash;' + grades[i + 1] + '<br>' : 'No ratings');
+                    '<span style="color:' + colorPopular(grades[i]+1) + '">'+ stars+'</span> ' +
+                     (grades[i + 1] ? + grades[i + 1] + '<br>' : 'No ratings');
             }
 
             return div;
@@ -199,7 +215,7 @@ var circleGroupViol = L.featureGroup();
             var div = L.DomUtil.create('div', 'info legend'),
                 grades = [0, 3, 6, 9, 12, 18],
                 labels = [];
-
+            div.innerHTML = '<p>FOOD VIOLATIONS</p>';
             // loop through our density intervals and generate a label with a colored square for each interval
             for (var i = 0; i < grades.length; i++) {
                 div.innerHTML +=
@@ -211,6 +227,22 @@ var circleGroupViol = L.featureGroup();
         };
         //
         legendViol.addTo(mapViol);
+
+        function getStars(num) {
+            if(num<6){
+                return '★★★'
+            } else if(num<7){
+                return '★★★✩'
+            } else if(num <8){
+                return '★★★★'
+            } else if(num<9){
+                return '★★★★✩'
+            } else if(num<10){
+                return '★★★★★'
+            } else{
+                return '◼︎'
+            }
+        }
 
         function highlightFeature(e) {
             var layer = e.target;
@@ -281,6 +313,23 @@ var circleGroupViol = L.featureGroup();
             });
             circleGroupViol.addLayer(circle);
         });
+
+        store.forEach(function (obj) {
+            var circle = L.circle(obj.location, {
+                stroke: false,
+                radius: 50,
+                fillOpacity: 0.7
+            })
+                .bindPopup(obj.name +'<br/>Address: '+obj.address)
+                .addTo(circleGoodStores);
+
+            circle.on('mouseover', function (e) {
+                this.openPopup();
+            });
+            circle.on('mouseout', function (e) {
+                this.closePopup();
+            });
+        })
 
     }
 

@@ -71,7 +71,7 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	//Create instances of all modules (views)
-	var map, mapViol;
+	var map, mapViol, mapGood;
 	var zoomLevel = 13.5;
 	var viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -105,6 +105,17 @@
 	    dragging: false
 	});
 	
+	mapGood = L.map("mapGood", {
+	    center: [42.375414, -71.016625],
+	    zoom: zoomLevel,
+	    scrollWheelZoom: false,
+	    zoomSnap: 0.5,
+	    zoomControl: false,
+	    attributionControl: false,
+	    doubleClickZoom: false,
+	    dragging: false
+	});
+	
 	var opacitytile = 'https://api.mapbox.com/styles/v1/wuyuyanran/cjd3wow5b2spz2sp53m9rcal8/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid3V5dXlhbnJhbiIsImEiOiJjamN6ODhzczMwb2UyMndxb3lsN3JkZGNwIn0.kBRE1lc7gqCbjF7r2YKhow';
 	var mapTile = L.tileLayer(opacitytile, {
 	    id: 'mapbox.opacity',
@@ -114,12 +125,14 @@
 	var circleGroup = L.featureGroup();
 	var yelpGroup = L.featureGroup();
 	var circleGroupViol = L.featureGroup();
+	var circleGoodStores = L.featureGroup().addTo(mapGood);
 	
 	d3.queue().defer(d3.json, './data/eb_neighborhood.geojson').defer(d3.json, './data/eastBostonInspection2.json').defer(d3.json, './processedData/yelpfoodDrinkCoffeeEB.json') //63 restaurants
+	.defer(d3.json, './processedData/parsedSafeStores.json') //63 restaurants
 	// .defer(d3.csv, './data/liquor-licenses.csv', parseLiquor)
 	.await(dataloaded);
 	
-	function dataloaded(err, geo, data0, yelp) {
+	function dataloaded(err, geo, data0, yelp, store) {
 	    console.log(yelp.length);
 	
 	    var geoJsonStyle = {
@@ -171,6 +184,7 @@
 	    var geoJson = L.geoJSON(geo, geoJsonStyle);
 	    geoJson.addTo(map);
 	    geoJson.addTo(mapViol);
+	    geoJson.addTo(mapGood);
 	
 	    circleGroup.addTo(map);
 	    yelpGroup.addTo(map);
@@ -231,10 +245,11 @@
 	        var div = L.DomUtil.create('div', 'info legend'),
 	            grades = [0, 6, 7, 8, 9, 10],
 	            labels = [];
-	
+	        div.innerHTML = '<p>YELP RATINGS</p>';
 	        // loop through our density intervals and generate a label with a colored square for each interval
 	        for (var i = 0; i < grades.length; i++) {
-	            div.innerHTML += '<i style="background:' + colorPopular(grades[i] + 1) + '"></i> ' + (grades[i + 1] ? grades[i] + '&ndash;' + grades[i + 1] + '<br>' : 'No ratings');
+	            var stars = getStars(grades[i]);
+	            div.innerHTML += '<span style="color:' + colorPopular(grades[i] + 1) + '">' + stars + '</span> ' + (grades[i + 1] ? +grades[i + 1] + '<br>' : 'No ratings');
 	        }
 	
 	        return div;
@@ -249,7 +264,7 @@
 	        var div = L.DomUtil.create('div', 'info legend'),
 	            grades = [0, 3, 6, 9, 12, 18],
 	            labels = [];
-	
+	        div.innerHTML = '<p>FOOD VIOLATIONS</p>';
 	        // loop through our density intervals and generate a label with a colored square for each interval
 	        for (var i = 0; i < grades.length; i++) {
 	            div.innerHTML += '<i style="background:' + colorByNum(grades[i] + 1) + '"></i> ' + (grades[i + 1] ? grades[i] + '&ndash;' + grades[i + 1] + '<br>' : '18+');
@@ -259,6 +274,22 @@
 	    };
 	    //
 	    legendViol.addTo(mapViol);
+	
+	    function getStars(num) {
+	        if (num < 6) {
+	            return '★★★';
+	        } else if (num < 7) {
+	            return '★★★✩';
+	        } else if (num < 8) {
+	            return '★★★★';
+	        } else if (num < 9) {
+	            return '★★★★✩';
+	        } else if (num < 10) {
+	            return '★★★★★';
+	        } else {
+	            return '◼︎';
+	        }
+	    }
 	
 	    function highlightFeature(e) {
 	        var layer = e.target;
@@ -326,6 +357,21 @@
 	            this.closePopup();
 	        });
 	        circleGroupViol.addLayer(circle);
+	    });
+	
+	    store.forEach(function (obj) {
+	        var circle = L.circle(obj.location, {
+	            stroke: false,
+	            radius: 50,
+	            fillOpacity: 0.7
+	        }).bindPopup(obj.name + '<br/>Address: ' + obj.address).addTo(circleGoodStores);
+	
+	        circle.on('mouseover', function (e) {
+	            this.openPopup();
+	        });
+	        circle.on('mouseout', function (e) {
+	            this.closePopup();
+	        });
 	    });
 	}
 	
@@ -60006,7 +60052,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body{\n\toverflow-x: hidden;\n}\nh1.EastBoston_head{\n\tmargin-bottom: 20px;\n}\n.credit{\n\tmargin-bottom: 50px;\n}\n.hedImg{\n\twidth: 100%;\n\tmargin: 50px 0 50px 0;\n}\n.eb-content{\n\tfont-family:'Times';\n\tfont-size: 1.75rem;\n\tline-height: 2.5rem;\n}\n#map{\n\tmargin-top: 50px;\n\tmin-height: 600px;\n\twidth: 100%;\n\tbackground-color: white;\n}\n.videoContainer{\n\tposition: relative;\n\twidth: 100%;\n\tmin-height: 400px;\n\toverflow: hidden;\n}\n\niframe {\n\tposition: absolute;\n\ttop:0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tborder: 0;\n}\n.info {\n\tpadding: 6px 8px;\n\tfont: 14px/16px Arial, Helvetica, sans-serif;\n\tbackground: white;\n\tbackground: rgba(255,255,255,0.8);\n\tbox-shadow: 0 0 15px rgba(0,0,0,0.2);\n\tborder-radius: 5px;\n}\n.info h4 {\n\tmargin: 0 0 5px;\n\tcolor: #777;\n}\n.row{\n\tmargin-left:0px;\n\tmargin-right: 0px;\n}\n.food-vio-list{\n\tfont-family:'Times';\n\tline-height: 2.5rem;\n}\n.viol-cat{\n\tbackground-color: #e08304;\n\tcolor:white;\n\tpadding: 15px;\n\tmargin: 8px;\n\tmin-height: 200px;\n}\n.viol-scroll{\n\tmax-height: 130px;\n\toverflow-y: scroll;\n\tbox-shadow: 1px 1px 2px 2px #888888;\n\tpadding: 5px;\n}\n#map-viol{\n\tmin-height: 600px;\n\twidth: 100%;\n\tbackground-color: white;\n}\n.viol-item{\n\tposition: relative;\n\tleft: 90%;\n\twidth: 120px;\n\tmin-height: 40px;\n\tpadding: 5px;\n\tbackground-color: orange;\n\tcolor: white;\n\tz-index: 1000;\n}\n\n.food-viol{\n\ttop: 100px;\n}\n.management-viol{\n\ttop: 160px;\n}\n.sanitation-viol{\n\ttop: 220px;\n}\n.other-viol{\n\ttop: 280px\n}\n.legend {\n\tline-height: 18px;\n\tcolor: #555;\n}\n.legend i {\n\twidth: 18px;\n\theight: 18px;\n\tfloat: left;\n\tmargin-right: 8px;\n\topacity: 0.7;\n}", ""]);
+	exports.push([module.id, "body{\n\toverflow-x: hidden;\n}\nh1.EastBoston_head{\n\tmargin-bottom: 20px;\n}\n.credit{\n\tmargin-bottom: 50px;\n}\n.hedImg{\n\twidth: 100%;\n\tmargin: 50px 0 50px 0;\n}\n.eb-content{\n\tfont-family:'Times';\n\tfont-size: 1.75rem;\n\tline-height: 2.5rem;\n}\n#map{\n\tmargin-top: 50px;\n\tmin-height: 600px;\n\twidth: 100%;\n\tbackground-color: white;\n}\n.videoContainer{\n\tposition: relative;\n\twidth: 100%;\n\tmin-height: 400px;\n\toverflow: hidden;\n}\n\niframe {\n\tposition: absolute;\n\ttop:0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n\tborder: 0;\n}\n.info {\n\tpadding: 6px 8px;\n\tfont: 14px/16px Arial, Helvetica, sans-serif;\n\tbackground: white;\n\tbackground: rgba(255,255,255,0.8);\n\tbox-shadow: 0 0 15px rgba(0,0,0,0.2);\n\tborder-radius: 5px;\n}\n.info h4 {\n\tmargin: 0 0 5px;\n\tcolor: #777;\n}\n.row{\n\tmargin-left:0px;\n\tmargin-right: 0px;\n}\n.food-vio-list{\n\tfont-family:'Times';\n\tline-height: 2.5rem;\n}\n.viol-cat{\n\tbackground-color: #e08304;\n\tcolor:white;\n\tpadding: 15px;\n\tmargin: 8px;\n\tmin-height: 200px;\n}\n.viol-scroll{\n\tmax-height: 130px;\n\toverflow-y: scroll;\n\tbox-shadow: 1px 1px 2px 2px #888888;\n\tpadding: 5px;\n}\n#map-viol{\n\tmin-height: 600px;\n\twidth: 100%;\n\tbackground-color: white;\n}\n#mapGood{\n\tmin-height: 600px;\n\twidth: 100%;\n\tbackground-color: white;\n}\n.viol-item{\n\tposition: relative;\n\tleft: 90%;\n\twidth: 120px;\n\tmin-height: 40px;\n\tpadding: 5px;\n\tbackground-color: orange;\n\tcolor: white;\n\tz-index: 1000;\n}\n\n.food-viol{\n\ttop: 100px;\n}\n.management-viol{\n\ttop: 160px;\n}\n.sanitation-viol{\n\ttop: 220px;\n}\n.other-viol{\n\ttop: 280px\n}\n.legend {\n\tline-height: 18px;\n\tcolor: #555;\n}\n.legend i {\n\twidth: 18px;\n\theight: 18px;\n\tfloat: left;\n\tmargin-right: 8px;\n\topacity: 0.7;\n}\n.most-serious{\n\tcolor: red\n}\n.somewhat-serious{\n\tcolor: orange;\n}\n.least-serious{\n\tcolor: gold\n}", ""]);
 	
 	// exports
 
