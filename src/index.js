@@ -318,7 +318,8 @@ var circleGoodStores = L.featureGroup().addTo(mapGood);
             var circle = L.circle(obj.location, {
                 stroke: false,
                 radius: 50,
-                fillOpacity: 0.7
+                fillOpacity: 0.7,
+                fillColor: 'orange'
             })
                 .bindPopup(obj.name +'<br/>Address: '+obj.address)
                 .addTo(circleGoodStores);
