@@ -123,3 +123,7 @@ iframe {
 .least-serious{
 	color: gold
 }
+.note{
+	font-family: Helvetica, Arial;
+	font-size: 1rem;
+}
